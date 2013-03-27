@@ -1,0 +1,36 @@
+#
+# 11.02.13 m
+#
+# to load with crontab
+# crontab -u $USER file
+# #
+# min. hour day  mont.day of week    command
+# *    *    *    *    *  command to be executed
+# ┬    ┬    ┬    ┬    ┬
+# │    │    │    │    │
+# │    │    │    │    │
+# │    │    │    │    └───── day of week (0 - 6) (0 is Sunday, or use names)
+# │    │    │    └────────── month (1 - 12)
+# │    │    └─────────────── day of month (1 - 31)
+# │    └──────────────────── hour (0 - 23)
+# └───────────────────────── min (0 - 59)
+#
+DISPLAY=:0
+
+SHELL=/bin/bash
+
+#MAILTO=orlandini.se@gmail.com
+
+@reboot sh        /home/orlandin/Dropbox/settings/desk/crontab/notify/reboot.sh
+@reboot /bin/bash /home/orlandin/Dropbox/settings/desk/crontab/logtime/logtime.sh
+
+# lunch
+# every day at 12:55
+55 12 * * * /usr/bin/notify-send 'lunchtime' '' -i /usr/share/pixmaps/apple-red.png
+
+# calcetto caspur
+# every monday at 18:30
+30 18 * * 1 /usr/bin/notify-send 'calcetto caspur' -i /usr/share/pixmaps/faces/soccerball.png
+
+#01 18 * * * sh /home/orlandin/Dropbox/settings/crontab/notify/reboot.sh
+#55 16 * * * /bin/bash /home/orlandin/Dropbox/settings/crontab/logtime/logtime.sh

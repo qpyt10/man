@@ -1,0 +1,53 @@
+#!/bin/bash
+# 11/11/09
+# 11/03/13 m
+
+PS1="\[\e[36;1m\]\h:\[\e[32;1m\]\w$ \[\e[0m\]"
+PS1="\[\e[36;1m\]\u@\h \w"
+
+#PS1="$PS1\e]\n $ "
+PROMPT_COLOR='04;36m'
+
+# setting hostname for prompt
+PROMPT_HOSTNAME=`hostname -d`
+test `hostname` == 'hpc2' && PROMPT_HOSTNAME="`hostname -a`.`hostname -d`"
+test -z ${PROMPT_HOSTNAME} && PROMPT_HOSTNAME=`hostname`
+
+if [[ ${PROMPT_HOSTNAME%%.*} == 'plx' ]];then
+   test `hostname` == 'node362' && PROMPT_HOSTNAME="rvn03.`hostname -d`"
+   test `hostname` == 'node363' && PROMPT_HOSTNAME="rvn04.`hostname -d`"
+fi
+
+PROMPT_TITLE="\[\e]1;${PROMPT_HOSTNAME}\a\e]2;${PROMPT_HOSTNAME}\a"
+PROMPT_NAME="\u"
+PROMPT_HOST="\e[${PROMPT_COLOR}${PROMPT_HOSTNAME}\e[m"
+PROMPT_DATE="[\A]"
+PROMPT_PATH="\w"
+PROMPT_COMD="$"
+PROMPT_COMD="\$(if [[ \$? == 0 ]]; then \
+             echo \"\[\033[01;32m\]\342\234\223\"; else \
+             echo \"\[\033[01;31m\]\342\234\227\"; fi)\[\033[00m\] ${PROMPT_COMD}"
+
+PS1="${PROMPT_TITLE}${PROMPT_NAME}@${PROMPT_HOST} ${PROMPT_DATE} ${PROMPT_PATH} \n ${PROMPT_COMD} "
+
+# \u username
+# \h hostname
+# \H full hostname
+# \w full path of the working dir
+# \t current time in hh:mm:ss format
+# \A the current time in 24-hour HH:MM format
+# \@ current time in 12-hour format
+# \! history number of the command
+# \? status of the last command
+
+# COLORING
+# \e[  - Indicates the beginning of color prompt
+# x;ym - Indicates color code. Use the color code values mentioned below.
+# \e[m - indicates the end of color prompt
+# some colors:
+# local BLUE="\[\033[0;34m\]"
+# local DARK_BLUE="\[\033[1;34m\]"
+# local RED="\[\033[0;31m\]"
+# local DARK_RED="\[\033[1;31m\]"
+# local NO_COLOR="\[\033[0m\]"
+

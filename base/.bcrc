@@ -1,0 +1,101 @@
+au2ang = 0.529177249
+pi = a(1)*4
+au2ev = 27.2113845
+ry2kcal = 313.75470835207074
+
+print "pi     = ", pi,     "\n"
+print "au2ang = ", au2ang, "\n"
+print "au2ev  = ", au2ev,  "\n"
+print "ry2kcal= ", ry2kcal,"\n"
+
+
+define cbytes (num_bytes, pow_bytes) {
+      return ( (1.0 * num_bytes) / (1024.0^pow_bytes));
+}
+
+c2b = cbytes(1, 0); i2b = cbytes(4, 0); f2b = cbytes(4, 0); d2b = cbytes(8, 0)
+c2k = cbytes(1, 1); i2k = cbytes(4, 1); f2k = cbytes(4, 1); d2k = cbytes(8, 1)
+c2m = cbytes(1, 2); i2m = cbytes(4, 2); f2m = cbytes(4, 2); d2m = cbytes(8, 2)
+c2g = cbytes(1, 3); i2g = cbytes(4, 3); f2g = cbytes(4, 3); d2g = cbytes(8, 3)
+
+si2b = cbytes(2, 0)
+si2k = cbytes(2, 1)
+si2m = cbytes(2, 2)
+si2g = cbytes(2, 3)
+
+print "# conversion:\n"
+print "from TYPE to BYTES/KB/MB/GB : t2b / t2k / t2m / t2g \n"
+print " type = int, float, double : i, f, d\n"
+
+print " from float to BYTES/KB/MB/GB : f2b / f2k / f2m / f2g \n"
+
+
+print "\n"
+print "Rule #6: Theta = (2*l/8+1)*8 ; Phi = (l/2+8)*4 \n"
+define t6 (l) {return ( (2*l/8+1)*8 );}
+define p6 (l) {return ( (l/2+8)*4   );}
+define r6 (l) { print t6(l),"\n",p6(l),"\n" }
+
+print "Rule #9: Theta = (2*l/8+1)*8 ; Phi = ((4*l+8)/4+1)*4+2 \n"
+define p9 (l) {return ( ((4*l+8)/4+1)*4+2  );}
+define r9 (l) { print t6(l),"\n",p9(l),"\n" }
+print "r6(l) and lr6(100)\n"
+print "r9(l) and lr9(100)\n"
+
+print "Golden Rule: Theta = l*4.5 ; Phi = l*9 \n"
+define tgr(l) {return ( l*4.5 );}
+define pgr(l) {return ( l*9   );}
+define gr (l) { print tgr(l),"\n",pgr(l),"\n" }
+print "gr(l) and lgr(100)\n"
+print "\n"
+
+
+define lr6 (lmax)
+{ l=10
+print "-------------------------\n"
+print "        Rule #6\n"
+print "        -------\n"
+print "Theta = (2*l/8 + 1) * 8\n"
+print "Phi   = (l/2 + 8) * 4 \n"
+print "-------------------------\n"
+print "lmax |  Theta \t|  Phi  |\n"
+print "-------------------------\n"
+while (l<lmax){
+print " ", l, "  |   ", t6(l),"\t|  ", p6(l), "\t|\n"
+l+=5 } 
+print "-------------------------\n"
+}
+
+define lr9 (lmax)
+{ l=10
+print "-------------------------\n"
+print "        Rule #9\n"
+print "        -------\n"
+print "Theta = (2*l/8 + 1) * 8\n"
+print "Phi   = ((4*l+8)/4+1)*4+2\n"
+print "-------------------------\n"
+print "lmax |  Theta \t|  Phi  |\n"
+print "-------------------------\n"
+while (l<lmax){
+print " ", l, "  |   ", t6(l),"\t|  ", p9(l), "\t|\n"
+l+=5 }
+print "-------------------------\n"
+}
+
+
+define lgr (lmax)
+{ l=10
+print "-------------------------\n"
+print "      Golden Rule\n"
+print "      -----------\n"
+print "Theta = (l*4.5)\n"
+print "Phi   = (l*9)\n"
+print "-------------------------\n"
+print "lmax |  Theta \t|  Phi  |\n"
+print "-------------------------\n"
+while (l<lmax){
+print " ", l, "  |   ", tgr(l),"\t|  ", pgr(l), "\t|\n"
+l+=5 }
+print "-------------------------\n"
+}
+

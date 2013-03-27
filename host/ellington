@@ -1,0 +1,6 @@
+cd 
+rm -r .rdesktop
+cd -
+ThisPath=$PWD
+echo $ThisPath
+rdesktop -u orlandin -r disk:myDir=$ThisPath -k it -d winhpc -p -  -g 90% ellington.caspur.it 
