@@ -1,6 +1,0 @@
-cd 
-rm -r .rdesktop
-cd -
-ThisPath=$PWD
-echo $ThisPath
-rdesktop -u s.orlandini@int.caspur.it -k it -r disk:myDir=$ThisPath -p -  -g 90% 193.205.218.15

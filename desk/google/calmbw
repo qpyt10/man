@@ -1,5 +1,0 @@
-#!/bin/bash
-
-this_path=`dirname $0`
-
-sh $this_path/call.sh " --nc calm"
