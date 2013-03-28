@@ -1,0 +1,55 @@
+#!/bin/bash
+# function: value (File StringVariable Value Log)
+# 18.04.08
+# 27.06.08 m
+# modify File
+# setting the StringVariable with
+# StringValue = Value
+# using sed -e command
+# if Log: write the sed command string in file Log
+# ATTENTION! safe the quotas!
+value ()
+{
+# check input
+if (( $# == 0 ));then
+echo -e  "
+NAME
+\t$0
+\nSYNOPSIS
+\tvalue File StringVariable Value [Log]
+\nDESCRIPTION
+\tmodify File
+\tsetting the StringVariable with
+\tStringValue = Value
+\tusing sed -e command
+\tif Log: write the sed command string in file Log
+\tATTENTION! safe the quotas!
+"
+exit 1
+fi
+local file=$1
+local string=$2
+local value=$3
+local log=$4
+local rnd=$RANDOM
+local bak=bak$rnd
+sed -e "s/.*\ $string.*/\ $string\ =\ $value/g" $file > $bak
+mv $bak $file
+# write to Log file
+if [ $log ];then
+local DATE=$(date '+%d/%m/%y %H:%M:%S %a')
+local iniz=${value:0:1}
+if [[ $iniz == '"' ]];then
+local iniz="'"
+else
+local iniz='"'
+fi
+#echo -e "# $DATE" >> $log
+echo -e "# $string = $value in $file" >> $log
+echo -e "sed -e $iniz s/\ $string.*/\ $string\ =\ $value/g $iniz $file > $bak
+mv $bak $file
+" >> $log
+fi
+}
+# end function value
+value "$@"

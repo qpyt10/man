@@ -1,0 +1,70 @@
+#!/bin/bash
+# function: value (File StringVariable Value Log)
+# 18.04.08
+# 03.07.09 m
+# modify File
+# setting the StringVariable with
+# StringValue = Value
+# using sed -e command
+# if Log: write the sed command string in file Log
+# ATTENTION! safe the quotas!
+WriteHelp ()
+{
+local NAME=${0##*/}
+echo -e  "
+NAME
+\t$NAME
+\nSYNOPSIS
+\tvalue File StringVariable Value [Log]
+\nDESCRIPTION
+\tmodify File
+\tsetting the StringVariable with
+\tStringValue = Value
+\tusing sed -e command
+\tif Log: write the sed command string in file Log
+\tATTENTION! safe the quotas!
+"
+}
+value ()
+{
+# check input
+test $# == 0 && WriteHelp && exit 0
+
+local -i DONE=0
+
+local file=$1
+local string=$2
+local value=$3
+local log=$4
+local rnd=$RANDOM
+local bak=bak$rnd
+
+# add blank space at the beginning of each line
+sed "s/^/\ /" $file > $bak && mv $bak $file
+# substitu value
+sed -e "s/.*\ $string.*/\ $string\ =\ $value/g" $file > $bak && mv $bak $file
+# delete blank space at the beginning of each line
+sed "s/^ //" $file > $bak && mv $bak $file
+
+### write Log file ###
+if [ $log ];then
+local DATE=$(date '+%d/%m/%y %H:%M:%S %a')
+local iniz=${value:0:1}
+if [[ $iniz == '"' ]];then
+local iniz="'"
+else
+local iniz='"'
+fi
+#echo -e "# $DATE" >> $log
+echo -en "# $string = $value in $file
+sed $iniz s/^/\ / $iniz $file > $bak && mv $bak $file
+sed -e $iniz s/\ $string.*/\ $string\ =\ $value/g $iniz $file > $bak && mv $bak $file
+sed $iniz s/^ // $iniz  $file > $bak && mv $bak $file
+" >> $log
+fi
+# end write Log file #
+
+return $DONE
+}
+# end function value
+value "$@"

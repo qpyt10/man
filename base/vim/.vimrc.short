@@ -1,0 +1,30 @@
+"
+" 23.01.13
+" 23.01.13 m
+"
+
+" switch to the previous tab
+map <C-LEFT>  :tabp<ENTER>
+" switch to the next tab
+map <C-RIGHT> :tabn<ENTER>
+
+" Alt-Up/Down to navigate forward/backward in the tags stack
+map <M-Up>   <C-T>
+map <M-Down> <C-]>
+
+
+" Space-direction  to navigate in the windows
+" better the caps-lock
+map <Space><Left>  <C-w><Left>
+map <Space><Right> <C-w><Right>
+map <Space><Up>    <C-w><Up>
+map <Space><Down>  <C-w><Down>
+
+"inoremap <Esc> <Esc>`^
+
+"set <Win>=^[OC
+"
+"map <Win> <C-w><Right>
+""map ^[OD <C-w><Right>
+"map ^[[1;3C <C-w><Right>
+

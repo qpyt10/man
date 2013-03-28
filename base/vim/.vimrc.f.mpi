@@ -1,0 +1,72 @@
+map! -err  ierr
+map! -sta  istatus
+map! -rnk  rank
+map! -pro  procs
+map! -com  MPI_COMM_WORLD
+
+map! -buf  Buffer
+map! -src  Source
+map! -dest Destination
+map! -tag  tag
+map! -typ  MPI_type
+map! -num  Count
+map! -root Root
+map! -op   MPI_op
+map! -req  Request
+map! -flag Flag
+
+map! -Sbuf Send-buf
+map! -Rbuf Rec-buf
+
+map! -inc  INCLUDE "mpif.h"
+map! -def  INTEGER :: -rnk, -pro, -tag, -err<CR>INTEGER, DIMENSION (MPI_STATUS_SIZE) :: -sta<CR>
+map! -init CALL MPI_INIT (-err)<CR>
+map! -rank CALL MPI_COMM_RANK (-com, -rnk, -err)<CR>
+map! -size CALL MPI_COMM_SIZE (-com, -pro, -err)<CR>
+map! -fin  CALL MPI_FINALIZE (-err)<CR>
+
+map! -ret <ESC>?(<CR>:silent noh<CR>:<CR><RIGHT>
+
+" point-to-point
+map! -send CALL MPI_Send (-buf, -num, -typ, -dest, -tag, -com, -err)-ret
+map! -recv CALL MPI_Recv (-buf, -num, -typ, -src, -tag, -com, -sta, -err)-ret
+
+map! -srec CALL MPI_Sendrecv (-Sbuf, -num, -typ, -dest, -tag, -Rbuf, -num, -typ, -src, -tag, -com, -sta, -err)-ret
+
+map! -ssend CALL MPI_Ssend (-buf, -num, -typ, -dest, -tag, -com, -err)-ret
+map! -bsend CALL MPI_Bsend (-buf, -num, -typ, -dest, -tag, -com, -err)-ret
+map! -batt  CALL MPI_Buffer_Attach (-buf, -num, -err)-ret
+map! -bdet  CALL MPI_Buffer_Detach (-buf, -num, -err)-ret
+map! -tsize CALL MPI_Type_Size (-type, -size, -err)-ret
+
+map! -isend CALL MPI_Isend (-buf, -num, -typ, -dest, -tag, -com, -req, -err)-ret
+map! -irecv CALL MPI_Irecv (-buf, -num, -typ, -src, -tag, -com, -req, -err)-ret
+map! -wait  CALL MPI_Wait (-req, -sta, -err)-ret
+map! -test  CALL MPI_Test (-req, -flag, -sta, -err)-ret
+
+" collective
+map! -red  CALL MPI_Reduce (-Sbuf, -Rbuf, -num, -typ, -op, -root, -com, -err)-ret
+map! -bcast CALL MPI_Bcast (-buf, -num, -typ, -root, -com, -err)-ret
+map! -scat CALL MPI_Scatter (-Sbuf, -num, -typ, -Rbuf, -num, -typ, -root, -com, -err)-ret
+map! -gath CALL MPI_Gather (-Sbuf, -num, -typ, -Rbuf, -num, -typ, -root, -com, -err)-ret
+
+map! -ared  CALL MPI_Allreduce (-Sbuf, -Rbuf, -num, -typ, -op, -com, -err)-ret
+
+" time
+map! -time time = MPI_Wtime()<ESC>^
+map! -bar  CALL MPI_Barrier (-com, -err)<CR>
+
+" topology
+map! -ndims ndims
+map! -dims  dims
+map! -comcart comm_cart
+map! -periods periods
+map! -cdef ,i -ndims, -comcart<CR>INTEGER, DIMENSION(:), ALLOCATABLE :: -dims<CR>LOGICAL, DIMENSION(:), ALLOCATABLE :: -periods<CR>
+map! -cdim -dims = 0<CR>CALL MPI_Dims_create (-pro, -ndims, -dims, -err)-ret
+map! -ccre CALL MPI_Cart_create (-com, -ndims, -dims, -periods, reorder, -comcart, -err)-ret
+map! -coords coords
+map! -crank CALL MPI_Cart_rank (-comcart, -coords, -rnk, -err)-ret 
+map! -ccord CALL MPI_Cart_coords (-comcart, -rnk, -ndims, -coords, -err)-ret
+map! -dir direction
+map! -disp displ
+map! -cshift CALL MPI_Cart_shift (-comcart, -dir, -disp, -src, -dest, -err)-ret

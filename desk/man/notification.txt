@@ -1,0 +1,11 @@
+sudo apt-get install specto
+
+
+sudo apt-get install libnotify-bin
+sudo apt-get install notification-daemon
+
+notify-send "take a coffee" -t 1000 -i /usr/share/pixmaps/caffeine.png
+notify-send "would you like a coffee ?" -t 0 -i /usr/share/pixmaps/caffeine.png 
+
+
+ (for i in $(seq 0 3 100); do echo "$i"; sleep 0.1; done) | zenity --progress

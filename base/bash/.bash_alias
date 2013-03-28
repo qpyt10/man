@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# 28/12/12
+# 13/03/13 m
+#
+
+alias pine="alpine -p $settings_path/mail/.pinerc"
+alias bc="bc $settings_path/base/.bcrc"
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias lt='ls -lrt'
