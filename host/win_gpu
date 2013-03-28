@@ -1,6 +1,0 @@
-cd 
-rm -r .rdesktop
-cd -
-ThisPath=$PWD
-echo $ThisPath
-rdesktop -u Administrator -k it -r disk:myDir=$ThisPath -p -  -g 90% 193.205.219.141
