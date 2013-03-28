@@ -1,0 +1,30 @@
+#
+# 12/12/12
+#
+
+#
+# from louis.caspur.it
+#
+svnadmin create --fs-type fsfs /work/adu/orlandin/svn/man
+
+svn import README file:///work/adu/orlandin/svn/man/README
+
+#
+# svn checkout svn+ssh://url.of.desktop/home/user/svn directory
+#
+svn co svn+ssh://orlandin@louis.caspur.it/work/adu/orlandin/svn/man
+
+# to exclude filetypes from revisioning
+# On a per-directory basis, edit the svn:ignore property
+# Then put on each line a pattern corresponding to the filetype to ignore
+# NB: go to base dir
+#svn propedit svn:ignore .
+# example:
+# *.x
+# *.o
+svn propset -R svn:ignore -F .svn_ignore.txt .
+
+# dump repository
+svnadmin dump /plx/userinternal/sorland2/svn/man  > repository.dump
+# load in other repository
+svnadmin load /plx/userinternal/sorland2/tmp  < repository.dump
