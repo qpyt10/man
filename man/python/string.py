@@ -1,22 +1,16 @@
-#!/bin/python
+#!/usr/bin/python
 
 string = "this is a string"
 print string
 
-# read a file line by line
-#f = open('string.py', 'r')
-#for line in f:
-#   print line
-#f.close()
+str1 = "concatenate a string with + :"
+str2 = " \"string1\" + \"string2\""
+print "\n" + str1 + str2 + "\n"
 
-# read a file once
-f = open('string.py', 'r')
-text = f.read()
-print text
-f.close()
+string = "abcdefgABCDEFG"
+print string
 
-# write a file
-o = open('string_copied.py', 'w')
-o.write("# write a copy of string.py\n")
-o.write(text)
-o.close()
+print "string[0:7] = ", string[0:7]
+print "string[8:]  = ", string[8:]
+print "string[:-2]  = ", string[:-2]
+print "string[-2:]  = ", string[-2:]
