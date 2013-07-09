@@ -24,5 +24,5 @@ plot(x, c, label="cosine")
 legend(loc='upper right')
 
 # save figure
-savefig('plot.pdf')
+savefig('fig.pdf')
 
