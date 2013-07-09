@@ -23,6 +23,9 @@ plot(x, c, label="cosine")
 # legend
 legend(loc='upper right')
 
+# title
+title('Cosine plot')
+
 # save figure
 savefig('fig.pdf')
 
