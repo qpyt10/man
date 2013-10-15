@@ -2,22 +2,22 @@
 
 class point :
 
-   def __init__ (self, value, index=None, position=None, name=None):
+   def __init__ (self, value, index=None, position=None, label=None):
       self.value = value
       if isinstance(index, int):
          self.index = index
       if isinstance(position, tuple):
          self.position = position
-      if isinstance(name, str):
-         self.name = name
+      if isinstance(label, str):
+         self.label = label
 
    def __repr__ (self):
       return str(self.value)
 
    def __str__ (self):
       string = ''
-      if hasattr(self, 'name'):
-         string += self.name + " = "
+      if hasattr(self, 'label'):
+         string += self.label + " = "
       string += "%e"%(self.value)
       if hasattr(self, 'position'):
          string += "\t@ " + str(self.position)
@@ -160,7 +160,7 @@ class data :
    def __init__ (self):
       self.a = point(1.0, 1, (1 ,1), 'a')
       self.b = point(-1.0, 2, (2 ,2), 'b')
-      self.c = point(9834.23, name='c')
+      self.c = point(9834.23, label='c')
 
    def __str__ (self):
       return str(self.max)
