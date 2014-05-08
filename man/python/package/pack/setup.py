@@ -1,8 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='pack',
       version='0.01',
-      description='packagingi ...',
+      description='...',
       author='so',
-      packages=['pack'],
+      #packages=['pack', 'pack/subpack'],
+      packages=find_packages(),
       zip_safe=False)

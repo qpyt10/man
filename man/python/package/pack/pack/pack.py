@@ -1,5 +1,6 @@
 
 import subpack.subpack as subpack
+import subpack2.subpack2 as subpack2
 
 def m_pack():
     return "method from pack"
