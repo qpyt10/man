@@ -39,6 +39,8 @@ class str_python (str):
 
 # }}}
 
+# class Report {{{
+
 class Report ():
 
    def __init__ (self, file_name = 'test.py'):
@@ -107,14 +109,18 @@ class Report ():
       #tkmb.showinfo("Alert", "Press OK to continue")
       raw_input()
 
+# }}}
+
+
+#test = Report('test.py')
+
 
 ls = Report('list.py')
+
+ls.exe()
+
 
 #for i, line in enumerate(t.blocks):
 #   t.write(line)
 #   #t.exe(line)
 #   exec line
-
-ls.exe()
-
-
