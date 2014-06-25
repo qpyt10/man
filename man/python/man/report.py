@@ -111,16 +111,27 @@ class Report ():
 
 # }}}
 
+#files = ['test.py']
 
-#test = Report('test.py')
-
-
-ls = Report('list.py')
-
-ls.exe()
-
+files = ['list.py']
 
 #for i, line in enumerate(t.blocks):
 #   t.write(line)
 #   #t.exe(line)
 #   exec line
+
+
+
+num_files = len(sys.argv)-1
+
+if (num_files):
+   files = sys.argv[1:]
+
+print "Files : ", files
+
+for i, item in enumerate(files): 
+
+   rep = Report(item)
+
+   # executing file
+   rep.exe()
