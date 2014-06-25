@@ -2,6 +2,8 @@
 import sys
 import re
 
+interactive = False
+
 # str_python {{{
 class str_python (str):
 
@@ -10,6 +12,9 @@ class str_python (str):
 
    def is_comment (self):
       return bool(re.match("#", self))
+
+   def is_comment_double (self):
+      return bool(re.match("##", self))
 
    def is_code (self):
       return (not self.is_blank()) and (not self.is_comment())
@@ -80,14 +85,14 @@ class Report ():
       return b
 # }}}
 
-   def write (self, this_line):
-
-      if ( this_line.is_comment() or this_line.is_blank() ):
-         print this_line
-      else:
-         ll = this_line.split("\n")
-         for i in ll:
-            print ">>>", i
+#   def write (self, this_line):
+#
+#      if ( this_line.is_comment() or this_line.is_blank() ):
+#         print this_line
+#      else:
+#         ll = this_line.split("\n")
+#         for i in ll:
+#            print ">>>", i
 
 
    def exe (self, exec_this):
@@ -97,12 +102,20 @@ class Report ():
    def exe (self):
       for i, line in enumerate(self.blocks):
 
+         #deprecated?
          #self.write(line)
+
          print line.__repr__()
-         exec line
+
+         if (line.is_comment_double() ):
+            print "here a double comment"
+            exec "print " + self.blocks[i+1]
+            pass
+         exec  line
 
          if (line.is_code()):
-            self.wait_for_key()
+            if (interactive):
+               self.wait_for_key()
 
    def wait_for_key(self):
       #import tkMessageBox as tkmb
