@@ -2,12 +2,23 @@
 import sys
 import re
 
+import inspect
+
 interactive = False
+interactive = True
+
+# debug {{{
+def dbg_stack ():
+   # stack
+   #print "[DBG_STCK] stack", inspect.stack()[2][3]
+   _, filename, linenumber, _, _, _ = inspect.stack()[2]
+   print "[DBG_STCK] Called from %s @%d" % (filename, linenumber)
+# }}}
 
 # str_python {{{
 class str_python (str):
 
-   def is_blank(self):
+   def is_blank (self):
       return not self.strip()
 
    def is_comment (self):
@@ -27,18 +38,34 @@ class str_python (str):
          return len(self) - len(self.lstrip())
 
    def __add__ (self, other):
-      return str_python(str(self)+str(other))
+      s = super(str_python, self).__str__() 
+      o = super(str_python, other).__str__()
+      return str_python(s+o)
 
-   def __repr__ (self):
+#   def __repr__ (self):
+#      return self
 
-      s = str_python("")
+   def __str__ (self):
+
+      #dbg_stack()
+   
+      s = ""
+
       if ( self.is_code() ):
-         ll = self.split("\n")
-         for i in ll:
+         l = self.split("\n")
+         for i in l:
             s += ">>> " + i + "\n"
          s = s[:-1]
       else:
          s += self
+
+      # remove first comment for double comment lines
+      if ( self.is_comment_double() ):
+         s = s[1:]
+
+      d = str_python(s)
+      if ( d.is_comment() and not s[1:] ):
+         return '\033[1A'
 
       return s
 
@@ -54,9 +81,10 @@ class Report ():
       self.lines  = self.get_lines()
       self.blocks = self.get_blocks()
 
+# get_lines {{{
    def get_lines (self):
       return [ str_python( line[:-1].rstrip() ) for line in open(self.file) ]
-
+# }}}
    # get_blocks {{{
    def get_blocks (self):
       """ return list with blocks """
@@ -76,7 +104,7 @@ class Report ():
          s += line
       
          if (indent_next > indent_start):
-            s += "\n"
+            s += str_python("\n")
          else:
             indent_start = indent_next
             b.append(s)
@@ -85,22 +113,26 @@ class Report ():
       return b
 # }}}
 
-   def exe (self, exec_this):
-      print "----", exec_this
-      exec exec_this
-
    def exe (self):
+
+      line_previous = str_python("")
 
       # loop on blocks
       for i, line in enumerate(self.blocks):
 
-         print line.__repr__()
+         print line
 
-         exec  line
+         if ( line_previous.is_comment_double() ):
+            exec "print " + line
+         else:
+            exec line
 
          if (line.is_code()):
             if (interactive):
                self.wait_for_key()
+
+         line_previous = line
+
 
    def wait_for_key(self):
       #import tkMessageBox as tkmb
