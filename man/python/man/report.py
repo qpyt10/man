@@ -85,32 +85,17 @@ class Report ():
       return b
 # }}}
 
-#   def write (self, this_line):
-#
-#      if ( this_line.is_comment() or this_line.is_blank() ):
-#         print this_line
-#      else:
-#         ll = this_line.split("\n")
-#         for i in ll:
-#            print ">>>", i
-
-
    def exe (self, exec_this):
       print "----", exec_this
       exec exec_this
 
    def exe (self):
-      for i, line in enumerate(self.blocks):
 
-         #deprecated?
-         #self.write(line)
+      # loop on blocks
+      for i, line in enumerate(self.blocks):
 
          print line.__repr__()
 
-         if (line.is_comment_double() ):
-            print "here a double comment"
-            exec "print " + self.blocks[i+1]
-            pass
          exec  line
 
          if (line.is_code()):
@@ -124,27 +109,28 @@ class Report ():
 
 # }}}
 
-#files = ['test.py']
 
-files = ['list.py']
+def main ():
 
-#for i, line in enumerate(t.blocks):
-#   t.write(line)
-#   #t.exe(line)
-#   exec line
+   #files = ['test.py']
+   files = ['list.py']
+   
+   
+   if ( len(sys.argv)-1 ):
+      files = sys.argv[1:]
+   
+   #print "Files : ", files
+   
+   for i, item in enumerate(files): 
+   
+      rep = Report(item)
+   
+      # executing file
+      rep.exe()
 
 
 
-num_files = len(sys.argv)-1
-
-if (num_files):
-   files = sys.argv[1:]
-
-print "Files : ", files
-
-for i, item in enumerate(files): 
-
-   rep = Report(item)
-
-   # executing file
-   rep.exe()
+if __name__ == "__main__":
+   import doctest
+   doctest.testmod()
+   main()
