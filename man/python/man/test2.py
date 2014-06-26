@@ -1,7 +1,7 @@
 a = [1, 2, 3]
 
 # single comment
-print a
+a
 
 ## double comment
 a
