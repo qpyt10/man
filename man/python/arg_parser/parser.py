@@ -10,7 +10,12 @@ parser.add_argument('-b', '--bar', help='bar help', nargs=1)
 parser.add_argument('optional positional args', default=[], nargs='*')
 #parser.add_argument('required positional args', default=[], nargs='+')
 
+parser.add_argument('--foo-one', type = int, help=' ')
+parser.add_argument('--foo-two', type = int, help=' ')
+
 args = parser.parse_args()
 
 print args
+
+print type(args)
 

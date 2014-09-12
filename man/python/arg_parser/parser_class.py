@@ -36,3 +36,44 @@ print args
 c = C(**vars(args))
 
 print c
+
+class D:
+
+   def __init__ (self, *args, **kwargs):
+
+      print args
+      print kwargs
+
+      for key, value in kwargs.items():
+         if (not value):
+            del kwargs[key]
+
+      self.foo = kwargs.get('foo', 42)
+      self.bar = kwargs.get('bar', 43)
+
+   def __str__ (self):
+      s = ""
+      s += "foo = " + str(self.foo) + "\n" 
+      s += "bar = " + str(self.bar)
+      return s
+
+
+class E:
+   def __init__(self, foo = -1, bar = -1, **kwargs ):
+      print "E ", kwargs
+      #self.__dict__.update(kwargs)
+      #print self.__dict__
+      #print self.bar
+
+print args
+
+d = D(*vars(args), **vars(args))
+
+#print d
+
+
+#E (**vars(args))
+
+E('1', '2', '3')
+
+
