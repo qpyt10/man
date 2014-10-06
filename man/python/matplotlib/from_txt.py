@@ -1,17 +1,18 @@
+#!/usr/bin/python
 
-from pylab import *
-import numpy 
+import matplotlib.pyplot as plt
+import numpy as np
 
 file_data='time.dat'
 
-data = numpy.loadtxt(file_data)
+data = np.loadtxt(file_data)
 
 x = data[:,0]
 y = data[:,2]
 
-l1 = plot(x, y)
+l1 = plt.plot(x, y)
 
-setp(l1, color='r', linewidth=2.0)
+plt.setp(l1, color='r', linewidth=2.0)
 
-savefig('fig.pdf')
+plt.savefig('fig.pdf')
 
