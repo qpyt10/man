@@ -10,6 +10,9 @@ parser.add_argument('-b', '--bar', help='bar help', nargs=1)
 parser.add_argument('optional positional args', default=[], nargs='*')
 #parser.add_argument('required positional args', default=[], nargs='+')
 
+# bool argument
+parser.add_argument('-t', action='store_true', help="default false, store true when selected")
+
 
 # mutually exclusive options
 group = parser.add_mutually_exclusive_group()
