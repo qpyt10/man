@@ -1,0 +1,7 @@
+svn2git svn+ssh://sorland2@login.plx.cineca.it/plx/userinternal/sorland2/_svn_ 
+git remote add origin https://github.com/qpyt10/man.git
+git push -u origin master
+
+
+git filter-branch --tag-name-filter cat --index-filter 'git rm -r --cached --ignore-unmatch settings' --prune-empty -f -- --all
+git push origin master --force
