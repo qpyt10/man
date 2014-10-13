@@ -1,0 +1,67 @@
+id: 1-2.1-4.r4/0
+type: file
+pred: 1-2.0.r3/43
+count: 2
+text: 3 0 23 15 f2a3012e042fbe80d05067637a75648c 5d71788df7880feafb17c318d3737760320a5e00 2-2/_2
+cpath: /tags/v1.0/file
+copyfrom: 3 /trunk/file
+
+PLAIN
+K 4
+file
+V 17
+file 1-2.1-4.r4/0
+END
+ENDREP
+id: 3-1.0-4.r4/249
+type: dir
+pred: 3-1.0.r1/129
+count: 1
+text: 4 200 36 0 9c11e4d69cdf2567063bfc4beeab7993
+cpath: /tags/v1.0
+copyfrom: 1 /trunk
+
+PLAIN
+K 4
+v1.0
+V 18
+dir 3-1.0-4.r4/249
+END
+ENDREP
+id: 2-1.0.r4/444
+type: dir
+pred: 2-1.0.r1/66
+count: 1
+text: 4 394 37 0 410aac2dda602e288385b5e8839b8484
+cpath: /tags
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 14
+dir 0-1.0.r1/0
+K 4
+tags
+V 16
+dir 2-1.0.r4/444
+K 5
+trunk
+V 16
+dir 3-1.0.r3/276
+END
+ENDREP
+id: 0.0.r4/689
+type: dir
+pred: 0.0.r3/522
+count: 4
+text: 4 576 100 0 4b43202b48f3ced37e5a213b60277206
+cpath: /
+copyroot: 0 /
+
+3-1._0.t3-3 add-dir false false /tags/v1.0
+1 /trunk
+1-2._1.t3-3 add-file false false /tags/v1.0/file
+3 /trunk/file
+
+689 815
